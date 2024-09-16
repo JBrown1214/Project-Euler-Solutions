@@ -1,0 +1,195 @@
+#Note: this code uses a .txt file of 1000 poker hands. It is included in this repository.
+
+deck = open('poker hands.txt', 'r')
+p1hands = []
+p2hands = []
+# each rank has a score which is higher than a card numerical value (except high card)
+ranking = {'royal flush': 23,
+            'straight flush': 22,
+            'four of a kind': 21,
+            'full house': 20,    
+            'flush': 19,
+            'straight': 18,
+            'three of a kind': 17,
+            'two pairs': 16,
+            'one pair': 15,
+            'high card': 0  
+            }
+
+
+for line in deck: #formats the poker file into two hands of 5 value:suit cards (p1/p2)
+    line = line.strip('\n') #remove newline
+    line = line.split(' ') # line == list of cards
+    for card in range(len(line)): #replace face cards with a numerical value
+        line[card] = line[card].replace('A','14') 
+        line[card] = line[card].replace('K','13')
+        line[card] = line[card].replace('Q','12')
+        line[card] = line[card].replace('J','11')
+        line[card] = line[card].replace('T', '10')
+        line[card] = {'num':int(line[card][:-1]), 'suit':line[card][-1:]}
+    p1hands.append(line[:5]) #splits each game into p1 hand and p2 hand
+    p2hands.append(line[5:])
+    def hand_sorter(hand):
+        return hand['num']
+    for hand in p1hands:
+        hand.sort(key=hand_sorter)
+    for hand in p2hands:
+        hand.sort(key=hand_sorter)
+    ## uncommenting this part will slow down the code a good bit =(
+    # print("\n\nNext Game: ")
+    # print(f"Player 1 hand: {p1_hands[-1]}")
+    # print(f"Player 2 hand: {p2_hands[-1]}")
+
+
+
+
+test_hands = [[{'num': 10, 'suit': 'D'}, #Royal Flush
+            {'num': 11, 'suit': 'D'},
+            {'num': 12, 'suit': 'D'},
+            {'num': 13, 'suit': 'D'},
+            {'num': 14, 'suit': 'D'}],
+           
+            [{'num': 4, 'suit': 'S'}, #Straight flush
+            {'num': 5, 'suit': 'S'},
+            {'num': 6, 'suit': 'S'},
+            {'num': 7, 'suit': 'S'},
+            {'num': 8, 'suit': 'S'}],
+           
+            [{'num': 4, 'suit': 'S'}, #Four of a kind
+            {'num': 4, 'suit': 'C'},
+            {'num': 4, 'suit': 'H'},
+            {'num': 4, 'suit': 'S'},
+            {'num': 13, 'suit': 'C'}],
+           
+            [{'num': 8, 'suit': 'S'}, #Full House
+            {'num': 8, 'suit': 'C'},
+            {'num': 8, 'suit': 'H'},
+            {'num': 10, 'suit': 'S'},
+            {'num': 10, 'suit': 'C'}],
+           
+            [{'num': 4, 'suit': 'H'},  #Flush
+            {'num': 8, 'suit': 'H'},
+            {'num': 9, 'suit': 'H'},
+            {'num': 10, 'suit': 'H'},
+            {'num': 13, 'suit': 'H'}],
+           
+            [{'num': 2, 'suit': 'S'}, #Straight
+            {'num': 3, 'suit': 'C'},
+            {'num': 4, 'suit': 'H'},
+            {'num': 5, 'suit': 'S'},
+            {'num': 6, 'suit': 'C'}],
+           
+            [{'num': 4, 'suit': 'S'}, #Three of a Kind
+            {'num': 8, 'suit': 'C'},
+            {'num': 13, 'suit': 'H'},
+            {'num': 13, 'suit': 'S'},
+            {'num': 13, 'suit': 'C'}],
+           
+            [{'num': 8, 'suit': 'S'}, #Two pairs
+            {'num': 8, 'suit': 'C'},
+            {'num': 9, 'suit': 'H'},
+            {'num': 9, 'suit': 'S'},
+            {'num': 13, 'suit': 'C'}],
+           
+            [{'num': 4, 'suit': 'S'}, # One pair
+            {'num': 4, 'suit': 'C'},
+            {'num': 8, 'suit': 'C'},
+            {'num': 9, 'suit': 'H'},
+            {'num': 10, 'suit': 'S'}],
+           
+            [{'num': 4, 'suit': 'S'}, # High Card
+            {'num': 8, 'suit': 'C'},
+            {'num': 9, 'suit': 'H'},
+            {'num': 10, 'suit': 'S'},
+            {'num': 13, 'suit': 'C'}]
+           
+            ]
+
+
+
+
+print('1000 Game hands loaded')
+def rank_check(game, playerhand):# returns a string of hand rank
+    hand_rank = ''
+    suits = ''
+    values = []
+    threeofakind = False
+
+
+    for card in playerhand[game]:
+        suits += card["suit"]
+    for card in playerhand[game]:
+        values.append(card["num"])
+
+
+    if suits == (5*'S') or suits == (5*'C') or suits == (5*'H') or suits == (5*'D'):
+        hand_rank = 'flush' # assigns flush
+        hand_rank = 'flush'
+        if [10,11,12,13,14] == values:
+            hand_rank = 'royal flush'
+            return hand_rank #royal flush
+        elif values == [values[0], values[0]+1, values[0]+2, values[0]+3, values[0]+4]:
+            hand_rank = 'straight flush'
+            return hand_rank #straight flush
+    for card_base in values:
+        nums_matching = 0
+        for card_compared in values:
+            if card_base == card_compared:
+                nums_matching += 1
+        if nums_matching >= 4:
+            hand_rank = 'four of a kind'
+            return hand_rank # four of a kind
+        elif nums_matching == 3 and (values[0] == values[1]) and (values[3] == values[4]):
+            hand_rank = 'full house'
+            return hand_rank # full house
+        elif nums_matching == 3:
+            threeofakind = True
+            hand_rank = 'three of a kind'
+    if hand_rank == 'flush' or (suits == (5*'S') or suits == (5*'C') or suits == (5*'H') or suits == (5*'D')):
+        return hand_rank # flush
+    if values == [values[0], values[0]+1, values[0]+2, values[0]+3, values[0]+4]:
+        hand_rank = 'straight'
+        return hand_rank # straight
+    if threeofakind == True:
+        return hand_rank # three of a kind
+    if values.count(values[1]) == 2:
+        if values.count(values[3]) == 2:
+            hand_rank = 'two pairs'
+            return hand_rank # two pairs
+        else:
+            hand_rank = 'one pair'
+            return hand_rank # one pair
+    hand_rank = 'high card'
+    return hand_rank # high card
+
+
+def find_high_card(game, playerhand):
+    values = []
+    for card in playerhand[game]:
+        values.append(card["num"])
+    return values[-1]
+
+
+p1_wins = 0
+p2_wins = 0
+
+
+for game in range(0,1000):
+    p1hand_rank = ranking[rank_check(game, p1hands)]
+    p2hand_rank = ranking[rank_check(game, p2hands)]
+    if p1hand_rank > p2hand_rank:
+        p1_wins += 1
+        print(f"p1 wins with [{rank_check(game, p1hands)}]")
+    elif p1hand_rank == p2hand_rank:
+        p1highcard = find_high_card(game, p1hands)
+        p2highcard = find_high_card(game, p2hands)
+        if p1highcard > p2highcard:
+            p1_wins += 1
+            print(f"p1 wins with [Highcard: {p1highcard}]")
+        else:
+            p2_wins += 1
+            print("p2 win")
+    elif p1hand_rank < p2hand_rank:
+        p2_wins += 1
+        print("p2 win")
+print(f"Player 1 won __{p1_wins}__ games")
