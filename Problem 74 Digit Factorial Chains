@@ -1,0 +1,39 @@
+search_range = 1000000
+length_sixty_numchains = 0
+long_numchains = {}
+digit_factorials = {
+    0:1,
+    1:1,
+    2:2,
+    3:6,
+    4:24,
+    5:120,
+    6:720,
+    7:5040,
+    8:40320,
+    9:362880}
+for start_num in range(1,search_range):
+    numlist = [start_num, ]
+    next_num = 0
+    numchain = []
+    if len(numlist) == 1:
+        for i in (list(str(start_num))):
+            next_num += digit_factorials[int(i)]
+        numlist.append(next_num)
+    while next_num != start_num:
+        next_num = 0
+        for i in (list(str(numlist[-1]))):
+            next_num += digit_factorials[int(i)]
+        if next_num in numlist:
+            #index_first_instance = numlist.index(next_num)
+            numchain = numlist #[numlist.index(next_num):]
+            break
+        else:
+            numlist.append(next_num)
+            # if len(numlist) % 15 == 0:
+            #     print(f"---list is over {len(numlist)} terms in length---")
+    if len(numchain) > 59:
+        long_numchains[start_num] = len(numchain)
+        if len(numchain) == 60:
+            length_sixty_numchains += 1
+print(f"We finally did it. Like seriously this time guys. There are {length_sixty_numchains} chains over 60")
