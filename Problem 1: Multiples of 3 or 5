@@ -1,0 +1,17 @@
+fivefactor = 1
+unionset_fivethree = {3}
+while fivefactor < 200:
+    fivemultiple = 5*fivefactor
+    unionset_fivethree.add(fivemultiple)
+       # print(fivemultiple)
+    fivefactor = fivefactor+1
+print("Total of fivemultiples:", (sum(unionset_fivethree)))
+
+
+threefactor = 1
+while threefactor < 334:
+    threemultiple = 3*threefactor
+    unionset_fivethree.add(threemultiple)
+       # print(fivemultiple)
+    threefactor = threefactor+1
+print("Total:",sum(unionset_fivethree))
