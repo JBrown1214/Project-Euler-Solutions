@@ -1,0 +1,10 @@
+def largest_prime(numbase):
+    while numbase != 1:
+        for i in range(2,(numbase-1)):
+            if numbase % i == 0:
+                if numbase / (i) == 1:
+                    return numbase
+                numbase = int(numbase / i)
+
+
+print(largest_prime(600851475143))
