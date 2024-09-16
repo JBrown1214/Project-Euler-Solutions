@@ -1,0 +1,7 @@
+def special_pythagorean_triplet():
+    for a in range(500):
+        for b in range(500):
+            c = ((a**2)+(b**2))**.5
+            if a + b + c == 1000 and (a<c) and (b<c) and (a!=b):
+                return int((a*b*c))
+print(special_pythagorean_triplet())
