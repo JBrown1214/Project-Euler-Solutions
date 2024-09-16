@@ -1,0 +1,15 @@
+palindromes = []
+for o in range(100, 999):
+    for i in range(100, 999):
+        product = o * i
+        product = str(product)
+        is_palindrome = 0
+        for ind in range((len(product)//2)):
+            if product[ind] == product[-(ind+1)]:
+                is_palindrome += 1
+            else:
+                is_palindrome += 0
+        if is_palindrome == (len(product)//2):
+            palindromes.append(int(product))
+print(palindromes)
+print(max(palindromes))
