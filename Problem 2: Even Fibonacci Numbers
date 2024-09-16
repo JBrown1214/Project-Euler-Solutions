@@ -1,0 +1,24 @@
+Fibonaccisequence = [1,2,3,5]
+Eventerms = [2]
+NextinSequence = (Fibonaccisequence[-1] + Fibonaccisequence[-2])
+
+
+
+
+while Fibonaccisequence[-1] <=4000000:
+    NextinSequence = (Fibonaccisequence[-1] + Fibonaccisequence[-2])
+    Fibonaccisequence.append(NextinSequence)
+    if NextinSequence%2 ==0:
+        Eventerms.append(NextinSequence)
+
+
+print("-----Full Fib.Sequence-----")
+print(Fibonaccisequence)
+print("-----Even terms-----")
+print(Eventerms)
+print("Coded Answer:", sum(Eventerms))
+
+
+print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+TrueAnswer = 4613732    
+print("True Answer:" + str( TrueAnswer))
