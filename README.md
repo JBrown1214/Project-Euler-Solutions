@@ -4,8 +4,8 @@ Project Euler is a website that offers a series of challenging computational pro
 
 Key features:
 
-Problem-solving: Each problem presents a unique challenge, requiring you to think critically and apply your programming skills.
-Mathematical concepts: Many problems involve mathematical concepts like number theory, combinatorics, and geometry.
-Efficiency: Solutions often need to be optimized for speed and memory usage.
-Community: There's a large community of problem solvers who share their approaches and discuss solutions.
+**Problem-solving:** Each problem presents a unique challenge, requiring you to think critically and apply your programming skills.
+**Mathematical concepts:** Many problems involve mathematical concepts like number theory, combinatorics, and geometry.
+**Efficiency:** Solutions often need to be optimized for speed and memory usage.
+
 This repository contains my solutions for every fully completed problem from www.projecteuler.net, along with some comments and notes from my code.
