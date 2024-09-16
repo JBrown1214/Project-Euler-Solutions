@@ -1,0 +1,18 @@
+primes_list = [2,3,5,7,11,13]
+import random
+for i in range(15, 150000, 2):
+    prime_count = 0
+    for j in range(3,i//2):
+        if i % j != 0:
+            prime_count += 1
+    if prime_count == ((i//2)-3):
+        primes_list.append(i)
+        if random.randint(1,10) == 10:
+            print(i)
+print("sweet victory")
+print(primes_list)
+print("*****************")
+print(f"number of primes found: {len(primes_list)}")
+print(primes_list[10002])
+
+#note: this code is by no means optimized. I need to come back to this and find a more efficient algorithm
