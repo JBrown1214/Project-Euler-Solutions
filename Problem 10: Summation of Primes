@@ -1,0 +1,16 @@
+import pprint
+primes_list = [2]
+count = 0
+for i in range(3,2000000,2):
+    skip = False
+    count += 1
+    for prime in primes_list:
+        if i % prime == 0:
+            skip = True
+            break
+    if skip != True:
+        if count % 25 == 0:
+            print(f'found: {i}')
+        primes_list.append(i)
+pprint.pp(primes_list)
+print(sum(primes_list))
